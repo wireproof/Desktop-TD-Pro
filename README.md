@@ -45,7 +45,7 @@ xcodebuild -project DesktopTDPro.xcodeproj -scheme DesktopTDPro \
   -allowProvisioningUpdates build
 ```
 
-Select your team and signing settings in `project.yml` or Xcode before building. The repository includes the patched SWF and the Ruffle runtime in `app/Resources/Web`, app code in `app/`, and the recovered ActionScript and bytecode modifications in `patches/`. The original unmodified SWF and local reverse-engineering tools are not required for an ordinary app build.
+Select your team and signing settings in `project.yml` or Xcode before building. The repository includes the patched SWF and the Ruffle runtime in `app/Resources/Web`, app code in `app/`, and the recovered ActionScript and bytecode modifications in `patches/`. The original game’s complete source code was not recovered; the repository contains the compiled game and the app and patch source, not the original authors’ complete source tree. The original unmodified SWF and local reverse-engineering tools are not required for an ordinary app build.
 
 To reproduce the patched SWF, obtain the original recovered file from <https://web-develop.ca/Games/DesktopTDPROv2NAD/DesktopTDPROv2NAD.swf>, verify its SHA-256 is `0ff49ed237ebafdc7d179c6111910a3f1fa34dac4ccc4b23c79f5df447eb880c`, and install Java and [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler) 26.5.0. Set `DTD_FFDEC_JAR` if the jar is not at `tools/ffdec-26.5.0/ffdec.jar`; set `DTD_JAVA` if `java` is not on the path.
 
