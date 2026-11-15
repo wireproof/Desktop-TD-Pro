@@ -11,6 +11,8 @@ struct RootView: View {
     @State private var notice: String?
     var body: some View {
         GameView(controller: game).ignoresSafeArea()
+            .statusBarHidden(true)
+            .persistentSystemOverlays(.hidden)
             .overlay(alignment: .top) {
                 Button { choosingIcon = true } label: {
                     Image(systemName: "gearshape.fill").font(.system(size: 15, weight: .semibold))
