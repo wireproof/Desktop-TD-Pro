@@ -1,0 +1,35 @@
+name: Windows portable EXE verification
+on:
+  workflow_dispatch:
+    inputs:
+      build_run_id:
+        description: Successful Windows desktop build run ID
+        required: true
+        type: string
+permissions:
+  actions: read
+  contents: read
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download portable EXE
+        uses: actions/download-artifact@v4
+        with:
+          name: Desktop-TD-Windows-x64
+          run-id: ${{ inputs.build_run_id }}
+          github-token: ${{ github.token }}
+          path: portable
+      - name: Start portable EXE and verify game load
+        shell: pwsh
+        run: |
+          $env:ELECTRON_ENABLE_LOGGING='1'
+          $exe = (Get-ChildItem portable -Filter 'Desktop-TD-*-Windows-x64.exe' | Select-Object -First 1).FullName
+          if (-not $exe) { throw 'Portable EXE not found' }
+          $process = Start-Process -FilePath $exe -ArgumentList '--smoke-test' -PassThru
+          if (-not $process.WaitForExit(120000)) {
+            Stop-Process -Id $process.Id -Force
+            throw 'Portable EXE smoke test timed out'
+          }
+          if ($process.ExitCode -ne 0) { throw "Portable EXE returned exit code $($process.ExitCode)" }
