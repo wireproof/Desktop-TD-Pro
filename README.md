@@ -4,7 +4,7 @@ Desktop TD is an iPhone/iPad compatibility project for the recovered **Desktop T
 
 ## iPhone build
 
-The current build is **0.4.1 (10)**, bundle identifier `com.wireproof.dtdpro`. It is landscape-only and fills the available display, with the slight stretching the owner selected. iOS is asked to hide system overlays. The small settings button shifts between menus and gameplay so it stays clear of the Sandbox heading and the score. The red icon is the default; the settings menu offers the supplied purple alternative.
+The current build is **0.4.2 (11)**, bundle identifier `com.wireproof.dtdpro`. It is landscape-only and fills the available display, with the slight stretching the owner selected. iOS is asked to hide system overlays. The small settings button shifts between menus and gameplay so it stays clear of the Sandbox heading and the score; in Sandbox setup it is centered in the space to the right of the heading. The red icon is the default; the settings menu offers the supplied purple alternative.
 
 The owner confirmed that game audio works, a Sandbox tower upgrades during a wave, and the previous full-screen layout was the best fit so far on the iPhone Duo. The new settings-button position, purple icon, long sessions, and all combinations of towers and modes still require physical-device verification. iPad has not been verified. Screens with camera cutouts or system overlays may cover edge content when filling the display.
 

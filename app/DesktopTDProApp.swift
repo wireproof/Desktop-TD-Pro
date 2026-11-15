@@ -20,7 +20,8 @@ struct RootView: View {
                             .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
                     }
                     .accessibilityLabel("Game settings")
-                    .position(x: geometry.size.width * (game.isPlaying ? 0.50 : 0.84), y: 21)
+                    .position(x: geometry.size.width * (game.isPlaying ? 0.50 : 0.77),
+                              y: game.isPlaying ? 21 : geometry.size.height * 0.07)
                 }
             }
             .confirmationDialog("Game settings", isPresented: $choosingIcon, titleVisibility: .visible) {
