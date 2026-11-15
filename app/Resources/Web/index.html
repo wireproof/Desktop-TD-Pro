@@ -66,6 +66,13 @@ window.addEventListener('load',async()=>{try{
     }
     return String(result);
   };
+  let lastScreen;
+  const updateScreen = () => {
+    let screen='menu';
+    try { if(typeof p.wireIsGameScreen === 'function' && p.wireIsGameScreen() === true) screen='game'; } catch (_) {}
+    if(screen!==lastScreen) {lastScreen=screen; window.webkit?.messageHandlers?.gameStatus?.postMessage({screen});}
+  };
+  updateScreen(); setInterval(updateScreen,250);
   window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');document.querySelector('#message').remove();
 }catch(e){window.webkit?.messageHandlers?.gameStatus?.postMessage('Load failed: '+e);document.querySelector('#message').textContent='Game could not load: '+e}})
 </script></body></html>

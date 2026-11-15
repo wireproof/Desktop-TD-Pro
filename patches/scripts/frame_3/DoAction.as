@@ -152,3 +152,8 @@ function wireUpgradeSelected()
 }
 flash.external.ExternalInterface.addCallback("wireUpgradeAvailable", null, wireUpgradeAvailable);
 flash.external.ExternalInterface.addCallback("wireUpgradeSelected", null, wireUpgradeSelected);
+function wireIsGameScreen()
+{
+   return _root._currentframe == 3 || _root._currentframe == 4 || _root._currentframe == 5;
+}
+flash.external.ExternalInterface.addCallback("wireIsGameScreen", null, wireIsGameScreen);

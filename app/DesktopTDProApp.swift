@@ -20,7 +20,7 @@ struct RootView: View {
                             .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
                     }
                     .accessibilityLabel("Game settings")
-                    .position(x: geometry.size.width * 0.30, y: 21)
+                    .position(x: geometry.size.width * (game.isPlaying ? 0.50 : 0.84), y: 21)
                 }
             }
             .confirmationDialog("Game settings", isPresented: $choosingIcon, titleVisibility: .visible) {
@@ -83,6 +83,7 @@ final class LocalServer {
 final class GameController: ObservableObject {
     weak var webView: WKWebView?
     @Published var message: String?
+    @Published var isPlaying = false
     func command(_ command: String) {
         guard let webView = webView else { message = "The game is still loading."; return }
         webView.evaluateJavaScript("window.wireCheckpointCommand ? window.wireCheckpointCommand('\(command)') : 'The game is still loading.'") { [weak self] result, error in
@@ -109,7 +110,10 @@ struct GameView: UIViewRepresentable {
         init(controller: GameController) { self.controller = controller }
         func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
             NSLog("DesktopTD status: %@", String(describing: message.body))
-            if let body = message.body as? [String: String], let status = body["checkpoint"] { controller?.message = status }
+            if let body = message.body as? [String: String] {
+                if let status = body["checkpoint"] { controller?.message = status }
+                if let screen = body["screen"] { controller?.isPlaying = (screen == "game") }
+            }
         }
         let server = LocalServer()
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
