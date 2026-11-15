@@ -46,7 +46,7 @@
 			);
 			sourceTree = "<group>";
 		};
-		"TEMP_CC32FDF5-961C-4142-8755-7CC472EA966B" /* Resources */ = {
+		"TEMP_C60D8295-DB62-4C79-850F-361CE4BC246F" /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -135,7 +135,9 @@
 		133161C301570D0EBF674CAF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = PurpleIcon;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KTV9W3H439;
@@ -161,7 +163,9 @@
 		4049B42CF0FFC3A4E3ABF2B1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_ALTERNATE_APPICON_NAMES = PurpleIcon;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KTV9W3H439;

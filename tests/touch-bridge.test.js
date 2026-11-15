@@ -1,0 +1,18 @@
+const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const vm = require('node:vm');
+const html = fs.readFileSync('app/Resources/Web/index.html', 'utf8');
+const source = html.slice(html.indexOf('function enableDrag'), html.indexOf("window.addEventListener('load'"));
+const listeners = {}, dispatched = [];
+const canvas = {dispatchEvent(e) { dispatched.push(e); }};
+const player = {shadowRoot:{querySelector() {return canvas;}},getBoundingClientRect(){return {left:0,top:0,width:700,height:500}},addEventListener(name, fn){listeners[name]=fn;}};
+const context = {window:{}, Math, PointerEvent:class {constructor(type,fields){this.type=type;Object.assign(this,fields)}}};
+vm.runInNewContext(source+'\nenableDrag(player);', {...context,player});
+const event=(x,y,id=3)=>({pointerType:'touch',isTrusted:true,pointerId:id,clientX:x,clientY:y});
+listeners.pointerdown(event(550,100));listeners.pointerup(event(550,100));assert.equal(dispatched.length,0,'tap remains native');
+listeners.pointerdown(event(550,100));listeners.pointermove(event(400,200));listeners.pointerup(event(250,250));
+assert.deepEqual(dispatched.map(e=>e.type),['pointermove','pointerup','pointermove','pointerdown']);
+assert.deepEqual(dispatched.map(e=>e.pointerId),[3,3,3,3]);
+assert.deepEqual(dispatched.map(e=>[e.clientX,e.clientY]),[[550,100],[550,100],[250,250],[250,250]]);
+dispatched.length=0;listeners.pointerdown(event(550,100));listeners.pointermove(event(500,200));listeners.pointerup(event(680,250));assert.deepEqual(dispatched.map(e=>e.type),['pointermove','pointerup'],'outside-board drag does not place');
+console.log('touch bridge gesture tests passed');

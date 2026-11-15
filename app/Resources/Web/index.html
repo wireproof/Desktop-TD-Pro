@@ -1,1 +1,40 @@
-<!doctype html><html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover"><style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151b18}body{display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}#game{width:min(100%,calc(100dvh * 1.333333));height:min(100%,calc(100vw * .75));background:#111}ruffle-player{width:100%;height:100%;display:block}#message{position:absolute;bottom:5px;color:#ddd;font:12px system-ui;pointer-events:none}</style><script src="ruffle.js"></script></head><body><div id="game"></div><div id="message">Loading Desktop TD Pro…</div><script>window.addEventListener('load',async()=>{try{let p=window.RufflePlayer.newest().createPlayer();document.querySelector('#game').appendChild(p);await p.ruffle().load({url:'game.swf',autoplay:'on',unmuteOverlay:'visible',allowNetworking:'none',openUrlMode:'deny',scale:'showAll',letterbox:'on'});window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');document.querySelector('#message').remove()}catch(e){window.webkit?.messageHandlers?.gameStatus?.postMessage('Load failed: '+e);document.querySelector('#message').textContent='Game could not load: '+e}})</script></body></html>
+<!doctype html>
+<html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151b18;touch-action:none}body{display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}#game{width:min(100%,calc(100dvh * 1.4));height:min(100%,calc(100vw / 1.4));background:#111;touch-action:none}ruffle-player{width:100%;height:100%;display:block;touch-action:none}#message{position:absolute;bottom:5px;color:#ddd;font:12px system-ui;pointer-events:none}</style><script src="ruffle.js"></script></head>
+<body><div id="game"></div><div id="message">Loading Desktop TD Pro…</div><script>
+function enableDrag(player) {
+  let gesture = null;
+  function send(type, point, buttons, pointerId) {
+    const canvas = player.shadowRoot?.querySelector('canvas'); if (!canvas) return;
+    canvas.dispatchEvent(new PointerEvent(type,{bubbles:true,cancelable:true,composed:true,view:window,pointerId,pointerType:'touch',isPrimary:true,clientX:point.x,clientY:point.y,button:0,buttons}));
+  }
+  player.addEventListener('pointerdown', e => {
+    if(e.pointerType !== 'touch' || !e.isTrusted) return;
+    const r=player.getBoundingClientRect(),x=(e.clientX-r.left)/r.width,y=(e.clientY-r.top)/r.height;
+    gesture=(x>.70 && y>.075 && y<.34) ? {x:e.clientX,y:e.clientY,id:e.pointerId,r,selected:false} : null;
+  },true);
+  player.addEventListener('pointermove', e => {
+    if(!gesture || gesture.selected || !e.isTrusted || e.pointerId!==gesture.id) return;
+    if(Math.hypot(e.clientX-gesture.x,e.clientY-gesture.y)<15) return;
+    // While the real finger is still down, release the palette button at its
+    // original location so the Flash game selects the tower as on desktop.
+    gesture.selected=true;
+    send('pointermove',gesture,1,gesture.id); send('pointerup',gesture,0,gesture.id);
+  },true);
+  player.addEventListener('pointercancel', () => {gesture=null},true);
+  player.addEventListener('pointerup', e => {
+    if(!gesture || !e.isTrusted || e.pointerId!==gesture.id) return;
+    const from=gesture; gesture=null; const point={x:e.clientX,y:e.clientY};
+    const x=(point.x-from.r.left)/from.r.width,y=(point.y-from.r.top)/from.r.height;
+    if(!from.selected || x<.05 || x>.68 || y<.10 || y>.85) return;
+    // The game's grid places on mouse down; the real pointer is still active
+    // while this capture handler runs. The actual release follows naturally.
+    send('pointermove',point,0,from.id); send('pointerdown',point,1,from.id);
+  },true);
+}
+window.addEventListener('load',async()=>{try{
+  let p=window.RufflePlayer.newest().createPlayer();document.querySelector('#game').appendChild(p);enableDrag(p);
+  await p.ruffle().load({url:'game.swf',autoplay:'on',unmuteOverlay:'visible',allowNetworking:'none',openUrlMode:'deny',scale:'showAll',letterbox:'on'});
+  window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');document.querySelector('#message').remove();
+}catch(e){window.webkit?.messageHandlers?.gameStatus?.postMessage('Load failed: '+e);document.querySelector('#message').textContent='Game could not load: '+e}})
+</script></body></html>

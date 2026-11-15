@@ -4,3 +4,4 @@ research/
 tools/
 *.log
 .DS_Store
+device-backups/

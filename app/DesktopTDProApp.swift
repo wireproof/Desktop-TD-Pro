@@ -3,7 +3,35 @@ import WebKit
 import Network
 
 @main struct DesktopTDProApp: App {
-    var body: some Scene { WindowGroup { GameView().ignoresSafeArea() } }
+    var body: some Scene { WindowGroup { RootView() } }
+}
+struct RootView: View {
+    @State private var choosingIcon = false
+    @State private var iconError: String?
+    var body: some View {
+        GameView().ignoresSafeArea()
+            .overlay(alignment: .topTrailing) {
+                Button { choosingIcon = true } label: {
+                    Image(systemName: "gearshape.fill").font(.system(size: 15, weight: .semibold))
+                        .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
+                }.accessibilityLabel("App icon settings").padding(8)
+            }
+            .confirmationDialog("App Icon", isPresented: $choosingIcon, titleVisibility: .visible) {
+                Button("Red (default)") { setIcon(nil) }
+                Button("Purple") { setIcon("PurpleIcon") }
+                Button("Cancel", role: .cancel) {}
+            }
+            .alert("Unable to change icon", isPresented: Binding(get: { iconError != nil }, set: { if !$0 { iconError = nil } })) {
+                Button("OK", role: .cancel) { iconError = nil }
+            } message: { Text(iconError ?? "") }
+    }
+    private func setIcon(_ name: String?) {
+        guard UIApplication.shared.supportsAlternateIcons else { iconError = "Alternate icons are not available on this device."; return }
+        guard UIApplication.shared.alternateIconName != name else { return }
+        UIApplication.shared.setAlternateIconName(name) { error in
+            if let error { DispatchQueue.main.async { iconError = error.localizedDescription } }
+        }
+    }
 }
 final class LocalServer {
     private let queue = DispatchQueue(label: "desktoptd.local")
@@ -11,7 +39,7 @@ final class LocalServer {
     var onReady: ((URL) -> Void)?
     func start() throws {
         let parameters = NWParameters.tcp
-        parameters.requiredLocalEndpoint = .hostPort(host: "127.0.0.1", port: .any)
+        parameters.requiredLocalEndpoint = .hostPort(host: "127.0.0.1", port: NWEndpoint.Port(rawValue: 58882)!)
         let listener = try NWListener(using: parameters)
         self.listener = listener
         listener.stateUpdateHandler = { [weak self, weak listener] state in
