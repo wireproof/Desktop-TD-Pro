@@ -13,11 +13,15 @@ struct RootView: View {
         GameView(controller: game).ignoresSafeArea()
             .statusBarHidden(true)
             .persistentSystemOverlays(.hidden)
-            .overlay(alignment: .top) {
-                Button { choosingIcon = true } label: {
-                    Image(systemName: "gearshape.fill").font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
-                }.accessibilityLabel("Game settings").padding(.top, 4)
+            .overlay(alignment: .topLeading) {
+                GeometryReader { geometry in
+                    Button { choosingIcon = true } label: {
+                        Image(systemName: "gearshape.fill").font(.system(size: 15, weight: .semibold))
+                            .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
+                    }
+                    .accessibilityLabel("Game settings")
+                    .position(x: geometry.size.width * 0.30, y: 21)
+                }
             }
             .confirmationDialog("Game settings", isPresented: $choosingIcon, titleVisibility: .visible) {
                 Button("Save Sandbox checkpoint") { game.command("save") }

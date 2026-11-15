@@ -1,17 +1,68 @@
-# Desktop TD — iOS compatibility test
+# Desktop TD
 
-An experimental iPhone/iPad app that runs a recovered Desktop TD Pro Flash file with Ruffle in WKWebView. This is a compatibility build, not a native rewrite or a verified remaster. It serves bundled content on a fixed loopback address and restricts network access to the local application origin.
+Desktop TD is an iPhone/iPad compatibility project for the recovered **Desktop Tower Defense Pro** Flash game. It runs the original game and its graphics and sounds using a bundled Ruffle player in a local `WKWebView`. The app is not a native rewrite or an upscaled graphics remaster. This private project preserves the recovered game for testing; it does not claim ownership of the original game or a license to redistribute it.
 
-## Current test build
+## iPhone build
 
-Version 0.3.4 build 8 fills the available display using slight stretching, as requested, and leaves all scale changes to Ruffle. The Duo cover simulator rendered the game edge to edge; cover-sized and inner-sized browser tests exercised a tower upgrade. The iPhone build was installed without launching; the physical layouts still need confirmation. Version 0.3.3 build 7 fits the 7:5 game into the available safe area and recalculates its size on display changes; it asks iOS to hide system overlays. Cover-screen layout was observed in the Duo simulator. Inner-screen dimensions were tested in a controlled browser viewport, but the simulator inner display did not render and still needs device confirmation. Version 0.3.2 build 6 adds an experimental iPhone touch path for the Upgrade button. A controlled test upgraded a pellet tower before and during a wave with one expected gold deduction. The user confirmed that an in-wave Sandbox tower upgrade works on the iPhone with build 6. Version 0.3.1 build 5 changed the app name to Desktop TD and bundle identifier to `com.wireproof.dtdpro`. It installs separately from the earlier `com.wireproof.desktoptdpro`; local saves do not migrate automatically. The iPhone test installation received a verified copy of the old app’s WebKit files before first launch, but their availability in game still needs confirmation. Version 0.3.0 build 4 was an experimental update. It retains local Sandbox tower preload and touch placement, moves the settings button to the top center, initializes the original game sound volume, and adds one local Sandbox checkpoint slot. The red app icon is the default; the settings menu offers purple.
+The current build is **0.4.0 (9)**, bundle identifier `com.wireproof.dtdpro`. It is landscape-only and fills the available display, with the slight stretching the owner selected. iOS is asked to hide system overlays. The small settings button sits to the left of center to avoid the Sandbox heading and the game counters. The red icon is the default; the settings menu offers the supplied purple alternative.
 
-To save a run, open the gear menu during a single-player Sandbox game and choose **Save Sandbox checkpoint**. The request waits until the board is clear between waves; a message confirms whether the write succeeded. To restore it, open a fresh Sandbox game using the same settings, leave Preload towers off, and choose **Load Sandbox checkpoint** before starting or placing towers. A checkpoint does not preserve an active wave, and the final wave cannot be saved. Scenarios, Sprint and multiplayer do not yet have checkpoint support. Existing online accounts, scoreboards and multiplayer have not been recreated.
+The owner confirmed that game audio works, a Sandbox tower upgrades during a wave, and the previous full-screen layout was the best fit so far on the iPhone Duo. The new settings-button position, purple icon, long sessions, and all combinations of towers and modes still require physical-device verification. iPad has not been verified. Screens with camera cutouts or system overlays may cover edge content when filling the display.
 
-A controlled browser test saved and restored a checkpoint after an actual wave; a separate test detected an audio signal after the volume change. The app loaded in the iOS simulator and build 4 was installed and launched on the iPhone; build 5 was installed and launched under the new identifier. Physical-device sound, the moved button, and checkpoint behavior still require testing. The previous iPhone build was observed running with towers placed. This remains a compatibility build, not a native rewrite or a verified remaster.
+## Playing
 
-## Build
+- Tap a tower in the palette, then tap the board to place it. Dragging from the palette to the board is also supported.
+- Tap a placed tower to select it, then use **Upgrade** or **Sell**. An in-wave upgrade takes time and shows a progress bar. Upgrades require sufficient gold and must be enabled in Sandbox settings.
+- Use the settings button for the local checkpoint commands and alternative app icon.
+- The original Sandbox **Preload towers** option can restore the last tower layout saved by the game when a run is started. Use matching Sandbox settings.
 
-Install Xcode and XcodeGen. Run `xcodegen generate`, open `DesktopTDPro.xcodeproj`, choose a development team and provisioning profile, and build for a registered device. Run `node tests/touch-bridge.test.js` for the touch translation checks. The patched game in `app/Resources/Web/game.swf` has SHA-256 `414624977a857a00f10e6868a93c137d1ca1334a92c963382383baa49934b332`. The unmodified recovered SWF had SHA-256 `0ff49ed237ebafdc7d179c6111910a3f1fa34dac4ccc4b23c79f5df447eb880c` and was downloaded from https://web-develop.ca/Games/DesktopTDPROv2NAD/DesktopTDPROv2NAD.swf. The modified ActionScript and bytecode are retained under `patches/scripts` and `patches/pcode`; JPEXS 26.5.0 was used to import them in this order: original SWF with the Grid and sprite frame-4 ActionScript patches, then the frame-1 and sprite frame-3 bytecode patches, then the root frame-3 ActionScript patch. The wrapper allows Flash script access for checkpoint commands but enforces a local-only content security policy and denies external navigation. Recompilation can change unrelated semantics, so check exports and runtime behavior before expanding patches.
+### Local checkpoints
 
-Ruffle is developed at https://github.com/ruffle-rs/ruffle; the bundled player files came from the game host. Ruffle's license information is in `app/Resources/Web/RUFFLE-LICENSE.md`. Desktop TD Pro and its original assets belong to their respective rights holders; their provenance, modification history and redistribution rights are unverified. This is a private experimental project and does not claim a redistribution license.
+During an active single-player Sandbox run, choose **Save Sandbox checkpoint** from the settings button. The request waits for a clear moment between waves; wait for the success message. There is one local checkpoint slot. To load it, enter a new Sandbox game with the same settings, leave **Preload towers** off, and choose **Load Sandbox checkpoint** before starting or placing towers.
+
+The checkpoint preserves a between-wave state, not an active wave. It is unavailable after the final wave starts and does not cover Scenarios, Sprint, or multiplayer. A controlled browser test saved and restored a checkpoint after an actual wave; a physical-device save-and-restore test is still needed. Local layouts and checkpoints belong to the app's local WebKit storage; deleting the app removes its local data. Keep a backup before replacing or removing the app.
+
+## Offline and compatibility status
+
+The game and Ruffle files are bundled and served from a fixed loopback address, `127.0.0.1:58882`. A content security policy restricts connections to the local origin, and the app blocks external navigation. The fixed address preserves the storage origin between updates. Flash script access is enabled for the local checkpoint and touch-upgrade bridge.
+
+Sandbox tower preload and the checkpoint are local replacements, not a recreation of all former account features. Cloud accounts, online leaderboards and multiplayer have not been recreated. The recovered game is running through an emulator, so behavior in every mode and exact equivalence to the original Flash runtime have not been established. If the former `com.wireproof.desktoptdpro` app remains installed, it is a separate iOS app with a separate data container; iOS does not automatically transfer data between bundle identifiers.
+
+## Install the test IPA
+
+The IPA is attached to the private GitHub release. It is signed with an Apple Development provisioning profile for registered devices, not an App Store or universal distribution build. It may need to be re-signed with your own Apple development team, provisioning profile and device registration; signing can expire. Preserve the existing installation and its data when updating. The release notes describe what was actually tested.
+
+## Build from source
+
+Requirements: macOS, Xcode with an iOS SDK, XcodeGen, and an Apple development team and device provisioning for a physical-device build. Node.js is useful for the touch-bridge check.
+
+```sh
+xcodegen generate
+node tests/touch-bridge.test.js
+xcodebuild -project DesktopTDPro.xcodeproj -scheme DesktopTDPro \
+  -configuration Debug -sdk iphonesimulator CODE_SIGNING_ALLOWED=NO build
+xcodebuild -project DesktopTDPro.xcodeproj -scheme DesktopTDPro \
+  -configuration Release -destination 'generic/platform=iOS' \
+  -allowProvisioningUpdates build
+```
+
+Select your team and signing settings in `project.yml` or Xcode before building. The repository includes the patched SWF and the Ruffle runtime in `app/Resources/Web`, app code in `app/`, and the recovered ActionScript and bytecode modifications in `patches/`. The original unmodified SWF and local reverse-engineering tools are not required for an ordinary app build.
+
+To reproduce the patched SWF, obtain the original recovered file from <https://web-develop.ca/Games/DesktopTDPROv2NAD/DesktopTDPROv2NAD.swf>, verify its SHA-256 is `0ff49ed237ebafdc7d179c6111910a3f1fa34dac4ccc4b23c79f5df447eb880c`, and install Java and [JPEXS Free Flash Decompiler](https://github.com/jindrapetrik/jpexs-decompiler) 26.5.0. Set `DTD_FFDEC_JAR` if the jar is not at `tools/ffdec-26.5.0/ffdec.jar`; set `DTD_JAVA` if `java` is not on the path.
+
+```sh
+DTD_FFDEC_JAR=/path/to/ffdec.jar scripts/rebuild-swf.sh original.swf rebuilt.swf
+shasum -a 256 rebuilt.swf
+```
+
+The script checks the original hash and applies the source and bytecode patches in order. With JPEXS 26.5.0 the resulting SWF matched the bundled file byte-for-byte, SHA-256 `414624977a857a00f10e6868a93c137d1ca1334a92c963382383baa49934b332`. Recompiling ActionScript can alter unrelated behavior; recheck exports and runtime behavior when changing patches.
+
+## Planned platforms and work
+
+- Finish iPhone interface and save verification, including cutouts, fold transitions, checkpoints, tower layouts, and longer games.
+- Verify iPad Pro 11-inch sizing, input, audio and persistence.
+- Package and test macOS and Windows versions with windowed and full-screen controls.
+- Prepare a browser-hosted version for the owner's Synology web server and wireproof.net; no deployment has been made. The current Ruffle-based web assets are not a native HTML5 rewrite.
+- Investigate a native HTML5 reconstruction and graphics remaster only if desired; preserve original gameplay and sounds and compare against the recovered build.
+- Decide whether local replacements for additional account features, scores, or multiplayer are wanted and feasible.
+
+Ruffle is developed at <https://github.com/ruffle-rs/ruffle>; its bundled license is in `app/Resources/Web/RUFFLE-LICENSE.md`. Desktop Tower Defense Pro and its original assets belong to their respective rights holders. Provenance and redistribution rights are unverified; keep releases private unless those rights are resolved.
