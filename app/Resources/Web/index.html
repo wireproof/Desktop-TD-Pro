@@ -1,5 +1,6 @@
 <!doctype html>
 <html><head><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; connect-src 'self'; img-src 'self' data: blob:; media-src 'self' blob:; worker-src 'self' blob:; object-src 'none'; frame-src 'none'">
 <style>*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#151b18;touch-action:none}body{display:flex;align-items:center;justify-content:center;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}#game{width:min(100%,calc(100dvh * 1.4));height:min(100%,calc(100vw / 1.4));background:#111;touch-action:none}ruffle-player{width:100%;height:100%;display:block;touch-action:none}#message{position:absolute;bottom:5px;color:#ddd;font:12px system-ui;pointer-events:none}</style><script src="ruffle.js"></script></head>
 <body><div id="game"></div><div id="message">Loading Desktop TD Pro…</div><script>
 function enableDrag(player) {
@@ -34,7 +35,22 @@ function enableDrag(player) {
 }
 window.addEventListener('load',async()=>{try{
   let p=window.RufflePlayer.newest().createPlayer();document.querySelector('#game').appendChild(p);enableDrag(p);
-  await p.ruffle().load({url:'game.swf',autoplay:'on',unmuteOverlay:'visible',allowNetworking:'none',openUrlMode:'deny',scale:'showAll',letterbox:'on'});
+  await p.ruffle().load({url:'game.swf',autoplay:'on',unmuteOverlay:'visible',allowNetworking:'all',allowScriptAccess:true,openUrlMode:'deny',scale:'showAll',letterbox:'on'});
+  window.wireCheckpointCommand = function(command) {
+    const method = command === 'save' ? 'wireSaveCheckpoint' : 'wireLoadCheckpoint';
+    if (typeof p[method] !== 'function') return 'Open a Sandbox game first.';
+    const result = p[method]();
+    if (command === 'save' && String(result).startsWith('Waiting')) {
+      const timer = setInterval(() => {
+        const status = typeof p.wireCheckpointStatus === 'function' ? p.wireCheckpointStatus() : '';
+        if (status && !String(status).startsWith('Waiting')) {
+          clearInterval(timer);
+          window.webkit?.messageHandlers?.gameStatus?.postMessage({checkpoint: String(status)});
+        }
+      }, 1000);
+    }
+    return String(result);
+  };
   window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');document.querySelector('#message').remove();
 }catch(e){window.webkit?.messageHandlers?.gameStatus?.postMessage('Load failed: '+e);document.querySelector('#message').textContent='Game could not load: '+e}})
 </script></body></html>

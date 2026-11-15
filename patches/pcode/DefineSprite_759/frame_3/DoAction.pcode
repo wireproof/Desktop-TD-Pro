@@ -1,0 +1,1907 @@
+ConstantPool "btnBack", "Trans", "btnGo", "ModeSettings", "scoreGroup", "sandbox", "Game", "me", "PlayButtonSound", "btnLoad", "txtConfig", "text", "LoadFromString", "CheckValues", "SaveValues", "SetMode", "btnReset", "LoadState", "FadeComplete", "_pdata", "data", "LoadState:", "NEW", "1-2096896-16", "flush", "LoadFromString:", "valGold", "optSize3", "optSize1", "optMap4", "optMap3", "optMap1", "optTow3", "optTow2", "optUp", "optSel", "optBuy", "optBo", "optSn", "optIn", "optBa", "optFr", "optSw", "optDa", "optSq", "optPe", "optTric", "optBoss", "optWav4", "optWav3", "optWav2", "optDiff3", "optDiff1", "optArc", "-", "split", "1", "length", "bin", "CCAPI", "PlayerIsGuest", "Value", "Selected", "ConvertStringToObject:", ",", ":", "", "ConvertObjectToString:", "substr", "_selected", "optDiff2", "SumButtons", "ptPe", "optTow1", "optMap2", "optSize2", "optWav1", "SAVEVALUES", "Reset", "_value", "val", "_defvalue", "dif:", "Math", "pow", "_diff", "_inc", "_negdiff", "s:", "txtRatio", "x", "ratio", "Set", "Get", "arcadeMode", "difficulty", "onlySpawn", "rndChal", "evilWaves", "onlyBoss", "trickleChal", "NoPellet", "NoSquirt", "NoDart", "NoSwarm", "NoFrost", "NoBash", "NoInk", "NoSnap", "NoBoost", "noBuy", "noSell", "noUpgrade", "maxTowers", "mapConfig", "mapSize", "startGold", "_linked", "_name", "_numvalue", "_reverse", "opt", "pop", "shift", "modeNum", "join", "_lastFrame", "_text", "GO", "Arcade Mode", "_desc", "No sell penalty and fast upgrading.", "_locked", "Easy Creeps", "Creeps have low health.", "Normal Creeps", "Creeps have normal health.", "Hard Creeps", "Creeps have high health.", "Normal", "Normal wave order.", "Spawn Waves", "Only Spawn waves.", "Random Waves", "Random wave order.", "Evil Waves", "Waves put into such a diabolical order that you will never prevail!", "Boss Only", "Bosses only!", "Trickle", "Waves arrive as a constant stream of creeps.", "Pellet", "Pellet towers are available.", "Squirt", "Squirt towers are available.", "Dart", "Dart towers are available.", "Swarm", "Swarm towers are available.", "Frost", "Frost towers are available.", "Bash", "Bash towers are available.", "Ink", "Ink towers are available.", "Snap", "Snap towers are available.", "Boost", "Boost towers are available.", "Buy", "Towers can be purchased once the game has started.", "Upgrade", "Towers can be upgraded once the game has started.", "Sell", "Towers can be sold once the game has started.", "Unlimited", "Unlimited towers can be built.", "Max 20", "A maximum of 20 towers can be built.", "Max 10", "A maximum of 10 towers can be built.", "1 Entrance", "Creeps enter through 1 entrance.", "2 Entrances", "Creeps enter through 2 entrances.", "4 Entrances", "Creeps enter through 4 entrances and exit in the middle.", "Corners", "Creeps enter and exit through entrances in the corners.", "Small Map", "A map of size 20x16 squares.", "Normal Map", "A map of size 28x24 squares.", "Large Map", "A map of size 36x32 squares.", "Start Money", "_neginc", "The amount of money that you will start with.", "_minValue", "10", "_maxValue", "_root"
+DefineFunction2 "ButtonClick", 1, 2, false, false, true, false, true, false, true, false, false, 1, "btn" {
+Push register1, "btnBack"
+GetVariable
+StrictEquals
+Not
+If loc09dc
+Push 1, 1, "Trans"
+CallFunction
+Pop
+Jump loc0af9
+loc09dc:Push register1, "btnGo"
+GetVariable
+StrictEquals
+Not
+If loc0a2b
+Push "ModeSettings"
+GetVariable
+Push "scoreGroup", "sandbox"
+SetMember
+Push 0.0, "Game"
+GetVariable
+Push "me"
+GetMember
+Push "PlayButtonSound"
+CallMethod
+Pop
+Push 4, 1, "Trans"
+CallFunction
+Pop
+Jump loc0af9
+loc0a2b:Push register1, "btnLoad"
+GetVariable
+StrictEquals
+Not
+If loc0a87
+Push "txtConfig"
+GetVariable
+Push "text"
+GetMember
+Push 1, "LoadFromString"
+CallFunction
+Pop
+Push 0.0, "CheckValues"
+CallFunction
+Pop
+Push 0.0, "SaveValues"
+CallFunction
+Pop
+Push 0.0, "SetMode"
+CallFunction
+Pop
+Jump loc0af9
+loc0a87:Push register1, "btnReset"
+GetVariable
+StrictEquals
+Not
+If loc0ad9
+Push true, 1, "LoadState"
+CallFunction
+Pop
+Push 0.0, "CheckValues"
+CallFunction
+Pop
+Push 0.0, "SaveValues"
+CallFunction
+Pop
+Push 0.0, "SetMode"
+CallFunction
+Pop
+Jump loc0af9
+loc0ad9:Push 0.0, "SaveValues"
+CallFunction
+Pop
+Push 0.0, "SetMode"
+CallFunction
+Pop
+}
+loc0af9:DefineFunction "FadeComplete", 0 {
+Push "FadeComplete"
+Trace
+Push 0.0, "LoadState"
+CallFunction
+Pop
+Push 0.0, "CheckValues"
+CallFunction
+Pop
+Push true, 1, "SaveValues"
+CallFunction
+Pop
+Push 0.0, "SetMode"
+CallFunction
+Pop
+Push "FadeComplete"
+Delete2
+Pop
+}
+DefineFunction2 "LoadState", 1, 5, false, false, true, false, true, false, true, false, false, 4, "reset" {
+Push 1
+StoreRegister 2
+Pop
+Push 1
+StoreRegister 3
+Pop
+Push "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "sandbox"
+GetMember
+StoreRegister 1
+Pop
+Push "LoadState:", register1
+Add2
+Trace
+Push register1, undefined
+Equals2
+PushDuplicate
+If loc0bc0
+Pop
+Push register4
+loc0bc0:Not
+If loc0c0a
+Push "NEW"
+Trace
+Push "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "sandbox", "1-2096896-16"
+StoreRegister 0
+SetMember
+Push register0
+StoreRegister 1
+Pop
+Push 0.0, "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "flush"
+CallMethod
+Pop
+loc0c0a:Push register1, 1, "LoadFromString"
+CallFunction
+Pop
+}
+DefineFunction2 "LoadFromString", 1, 10, false, true, true, false, true, false, true, false, false, 9, "s" {
+Push "LoadFromString:", register9
+Add2
+Trace
+Push "valGold"
+GetVariable
+Push "optSize3"
+GetVariable
+Push "optSize1"
+GetVariable
+Push "optMap4"
+GetVariable
+Push "optMap3"
+GetVariable
+Push "optMap1"
+GetVariable
+Push "optTow3"
+GetVariable
+Push "optTow2"
+GetVariable
+Push "optUp"
+GetVariable
+Push "optSel"
+GetVariable
+Push "optBuy"
+GetVariable
+Push "optBo"
+GetVariable
+Push "optBo"
+GetVariable
+Push "optSn"
+GetVariable
+Push "optIn"
+GetVariable
+Push "optBa"
+GetVariable
+Push "optFr"
+GetVariable
+Push "optSw"
+GetVariable
+Push "optDa"
+GetVariable
+Push "optSq"
+GetVariable
+Push "optPe"
+GetVariable
+Push "optTric"
+GetVariable
+Push "optBoss"
+GetVariable
+Push "optWav4"
+GetVariable
+Push "optWav3"
+GetVariable
+Push "optWav2"
+GetVariable
+Push "optDiff3"
+GetVariable
+Push "optDiff1"
+GetVariable
+Push "optArc"
+GetVariable
+Push 29
+InitArray
+StoreRegister 8
+Pop
+Push 0.0
+StoreRegister 6
+Pop
+Push "-", 1, register9, "split"
+CallMethod
+StoreRegister 7
+Pop
+Push register7, 0.0
+GetMember
+Push "1"
+Equals2
+Not
+If loc0ea3
+Push 1
+StoreRegister 3
+Pop
+loc0d46:Push register3, register7, "length"
+GetMember
+Less2
+Not
+If loc0ea3
+Push "bin", 1
+SetVariable
+Push register7, register3
+GetMember
+ToInteger
+StoreRegister 4
+Pop
+Push register3, register7, "length"
+GetMember
+Push 1
+Subtract
+Equals2
+Not
+If loc0e10
+Push register4, 5
+Multiply
+StoreRegister 5
+Pop
+Push register5, 99999
+Greater
+Not
+If loc0db8
+Push 99999
+StoreRegister 5
+Pop
+loc0db8:Push 0.0, register1, "CCAPI"
+GetMember
+Push "PlayerIsGuest"
+CallMethod
+Pop
+Push false
+Push false
+Equals2
+Not
+If loc0df4
+Push register5, 1, "valGold"
+GetVariable
+Push "Value"
+CallMethod
+Pop
+Jump loc0e0b
+loc0df4:Push 80, 1, "valGold"
+GetVariable
+Push "Value"
+CallMethod
+Pop
+loc0e0b:Jump loc0ea3
+loc0e10:Push "bin"
+GetVariable
+Push 2147483647
+Greater
+Not
+Not
+If loc0e93
+Push register8, register6
+GetMember
+StoreRegister 2
+Pop
+Push register4, "bin"
+GetVariable
+BitAnd
+Not
+If loc0e5a
+Push 1, 1, register2, "Selected"
+CallMethod
+Pop
+Jump loc0e71
+loc0e5a:Push 0.0, 1, register2, "Selected"
+CallMethod
+Pop
+loc0e71:Push register6
+Increment
+StoreRegister 6
+Pop
+Push "bin", "bin"
+GetVariable
+Push 2
+Multiply
+SetVariable
+Jump loc0e10
+loc0e93:Push register3
+Increment
+StoreRegister 3
+Pop
+Jump loc0d46
+}
+loc0ea3:DefineFunction2 "ConvertStringToObject", 1, 6, false, false, true, false, true, false, true, false, false, 5, "s" {
+Push "ConvertStringToObject:", register5
+Add2
+Trace
+Push ",", 1, register5, "split"
+CallMethod
+StoreRegister 3
+Pop
+Push 0.0
+InitObject
+StoreRegister 4
+Pop
+Push 0.0
+StoreRegister 1
+Pop
+loc0f06:Push register1, register3, "length"
+GetMember
+Less2
+Not
+If loc0f5e
+Push ":", 1, register3, register1
+GetMember
+Push "split"
+CallMethod
+StoreRegister 2
+Pop
+Push register4, register2, 0.0
+GetMember
+Push register2, 1
+GetMember
+SetMember
+Push register1
+Increment
+StoreRegister 1
+Pop
+Jump loc0f06
+loc0f5e:Push register4
+Return
+}
+DefineFunction2 "ConvertObjectToString", 1, 4, false, false, true, false, true, false, true, false, false, 1, "o" {
+Push ""
+StoreRegister 2
+Pop
+Push register1
+Enumerate2
+loc0f97:StoreRegister 0
+Push null
+Equals2
+If loc0fd3
+Push register0
+StoreRegister 3
+Pop
+Push register2, ",", register3
+Add2
+Push ":"
+Add2
+Push register1, register3
+GetMember
+Add2
+Add2
+StoreRegister 2
+Pop
+Jump loc0f97
+loc0fd3:Push "ConvertObjectToString:", 1, 1, register2, "substr"
+CallMethod
+Add2
+Trace
+Push 1, 1, register2, "substr"
+CallMethod
+Return
+}
+DefineFunction2 "SumButtons", 1, 4, false, false, true, false, true, false, true, false, false, 1, "arr" {
+Push 0.0
+StoreRegister 2
+Pop
+Push register1
+Enumerate2
+loc102d:StoreRegister 0
+Push null
+Equals2
+If loc1061
+Push register0
+StoreRegister 3
+Pop
+Push register2, register1, register3
+GetMember
+Push "_selected"
+GetMember
+ToInteger
+Add2
+StoreRegister 2
+Pop
+Jump loc102d
+loc1061:Push register2
+Return
+}
+DefineFunction2 "CheckValues", 1, 4, false, false, true, false, true, false, true, false, false, 1, "init" {
+Push "optDiff3"
+GetVariable
+Push "optDiff2"
+GetVariable
+Push "optDiff1"
+GetVariable
+Push 3
+InitArray
+Push 1, "SumButtons"
+CallFunction
+Push 1
+Equals2
+Not
+Not
+If loc111b
+Push register1
+Not
+If loc1104
+Push "optDiff1"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optDiff2"
+GetVariable
+Push "_selected", 1
+SetMember
+Push "optDiff3"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Jump loc111b
+loc1104:Push 1, 1, "optDiff2"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc111b:Push "optBo"
+GetVariable
+Push "optSn"
+GetVariable
+Push "optIn"
+GetVariable
+Push "optBa"
+GetVariable
+Push "optFr"
+GetVariable
+Push "optSw"
+GetVariable
+Push "optDa"
+GetVariable
+Push "optSq"
+GetVariable
+Push "ptPe"
+GetVariable
+Push 9
+InitArray
+Push 1, "SumButtons"
+CallFunction
+StoreRegister 3
+Pop
+Push false
+StoreRegister 2
+Pop
+Push register3, 1
+Less2
+Not
+If loc1194
+Push true
+StoreRegister 2
+Pop
+Jump loc1229
+loc1194:Push register3
+StoreRegister 0
+Push 1
+StrictEquals
+If loc11c0
+Push register0, 2
+StrictEquals
+If loc11f4
+Jump loc1229
+loc11c0:Push "optBo"
+GetVariable
+Push "_selected"
+GetMember
+PushDuplicate
+If loc11df
+Pop
+Push "optSw"
+GetVariable
+Push "_selected"
+GetMember
+loc11df:Not
+If loc11ef
+Push true
+StoreRegister 2
+Pop
+loc11ef:Jump loc1229
+loc11f4:Push "optBo"
+GetVariable
+Push "_selected"
+GetMember
+PushDuplicate
+Not
+If loc1214
+Pop
+Push "optSw"
+GetVariable
+Push "_selected"
+GetMember
+loc1214:Not
+If loc1224
+Push true
+StoreRegister 2
+Pop
+loc1224:Jump loc1229
+loc1229:Push register2
+Not
+If loc126c
+Push register1
+Not
+If loc1255
+Push "optPe"
+GetVariable
+Push "_selected", 1
+SetMember
+Jump loc126c
+loc1255:Push 1, 1, "optPe"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc126c:Push "optTow3"
+GetVariable
+Push "optTow2"
+GetVariable
+Push "optTow1"
+GetVariable
+Push 3
+InitArray
+Push 1, "SumButtons"
+CallFunction
+Push 1
+Equals2
+Not
+Not
+If loc1304
+Push register1
+Not
+If loc12ed
+Push "optTow1"
+GetVariable
+Push "_selected", 1
+SetMember
+Push "optTow2"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optTow3"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Jump loc1304
+loc12ed:Push 1, 1, "optTow1"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc1304:Push "optMap4"
+GetVariable
+Push "optMap3"
+GetVariable
+Push "optMap2"
+GetVariable
+Push "optMap1"
+GetVariable
+Push 4
+InitArray
+Push 1, "SumButtons"
+CallFunction
+Push 1
+Equals2
+Not
+Not
+If loc13b7
+Push register1
+Not
+If loc13a0
+Push "optMap1"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optMap2"
+GetVariable
+Push "_selected", 1
+SetMember
+Push "optMap3"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optMap4"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Jump loc13b7
+loc13a0:Push 1, 1, "optMap2"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc13b7:Push "optSize3"
+GetVariable
+Push "optSize2"
+GetVariable
+Push "optSize1"
+GetVariable
+Push 3
+InitArray
+Push 1, "SumButtons"
+CallFunction
+Push 1
+Equals2
+Not
+Not
+If loc144f
+Push register1
+Not
+If loc1438
+Push "optSize1"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optSize2"
+GetVariable
+Push "_selected", 1
+SetMember
+Push "optSize3"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Jump loc144f
+loc1438:Push 1, 1, "optSize2"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc144f:Push "optWav4"
+GetVariable
+Push "optWav3"
+GetVariable
+Push "optWav2"
+GetVariable
+Push "optWav1"
+GetVariable
+Push 4
+InitArray
+Push 1, "SumButtons"
+CallFunction
+Push 1
+Equals2
+Not
+Not
+If loc1502
+Push register1
+Not
+If loc14eb
+Push "optWav1"
+GetVariable
+Push "_selected", 1
+SetMember
+Push "optWav2"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optWav3"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Push "optWav4"
+GetVariable
+Push "_selected", 0.0
+SetMember
+Jump loc1502
+loc14eb:Push 1, 1, "optWav1"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc1502:Push "optBoss"
+GetVariable
+Push "_selected"
+GetMember
+PushDuplicate
+Not
+If loc1522
+Pop
+Push "optWav4"
+GetVariable
+Push "_selected"
+GetMember
+loc1522:Not
+If loc1543
+Push 0.0, 1, "optBoss"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+loc1543:Push "optTric"
+GetVariable
+Push "_selected"
+GetMember
+PushDuplicate
+Not
+If loc1563
+Pop
+Push "optWav4"
+GetVariable
+Push "_selected"
+GetMember
+loc1563:Not
+If loc1584
+Push 0.0, 1, "optTric"
+GetVariable
+Push "Selected"
+CallMethod
+Pop
+}
+loc1584:DefineFunction2 "SaveValues", 1, 10, false, false, true, false, true, false, true, false, false, 9, "test" {
+Push 0.0, 1
+InitArray
+StoreRegister 5
+Pop
+Push 0.0
+StoreRegister 6
+Pop
+Push 1
+StoreRegister 4
+Pop
+Push 1
+StoreRegister 2
+Pop
+Push "SAVEVALUES"
+Trace
+Push 0.0, "ModeSettings"
+GetVariable
+Push "Reset"
+CallMethod
+Pop
+Push 0.0, "CheckValues"
+CallFunction
+Pop
+Push "valGold"
+GetVariable
+Push "optSize3"
+GetVariable
+Push "optSize1"
+GetVariable
+Push "optMap4"
+GetVariable
+Push "optMap3"
+GetVariable
+Push "optMap1"
+GetVariable
+Push "optTow3"
+GetVariable
+Push "optTow2"
+GetVariable
+Push "optUp"
+GetVariable
+Push "optSel"
+GetVariable
+Push "optBuy"
+GetVariable
+Push "optBo"
+GetVariable
+Push "optBo"
+GetVariable
+Push "optSn"
+GetVariable
+Push "optIn"
+GetVariable
+Push "optBa"
+GetVariable
+Push "optFr"
+GetVariable
+Push "optSw"
+GetVariable
+Push "optDa"
+GetVariable
+Push "optSq"
+GetVariable
+Push "optPe"
+GetVariable
+Push "optTric"
+GetVariable
+Push "optBoss"
+GetVariable
+Push "optWav4"
+GetVariable
+Push "optWav3"
+GetVariable
+Push "optWav2"
+GetVariable
+Push "optDiff3"
+GetVariable
+Push "optDiff1"
+GetVariable
+Push "optArc"
+GetVariable
+Push 29
+InitArray
+StoreRegister 7
+Pop
+Push 0.0
+StoreRegister 3
+Pop
+loc16da:Push register3, register7, "length"
+GetMember
+Less2
+Not
+If loc1985
+Push register7, register3
+GetMember
+StoreRegister 1
+Pop
+Push register1, "_selected"
+GetMember
+Not
+If loc1719
+Push register5, register6, register5, register6
+GetMember
+Push register4
+Add2
+SetMember
+loc1719:Push register1, "_value"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc18c5
+Push "val", register1, "_value"
+GetMember
+ToInteger
+SetVariable
+Push register1, "valGold"
+GetVariable
+StrictEquals
+Not
+If loc184b
+Push "val"
+GetVariable
+Push register1, "_defvalue"
+GetMember
+Less2
+Not
+Not
+If loc17f3
+Push "dif:", register1, "_defvalue"
+GetMember
+Push "val"
+GetVariable
+Subtract
+Push 100
+Divide
+Push 0.6, "val"
+GetVariable
+Push register1, "_defvalue"
+GetMember
+Divide
+Push 2, "Math"
+GetVariable
+Push "pow"
+CallMethod
+Divide
+Add2
+Trace
+Push register2, register1, "_defvalue"
+GetMember
+Push "val"
+GetVariable
+Subtract
+Push 100
+Divide
+Push 0.6, "val"
+GetVariable
+Push register1, "_defvalue"
+GetMember
+Divide
+Push 2, "Math"
+GetVariable
+Push "pow"
+CallMethod
+Divide
+Add2
+StoreRegister 2
+Pop
+Jump loc1846
+loc17f3:Push register2, register1, "_defvalue"
+GetMember
+Push "val"
+GetVariable
+Subtract
+Push 100
+Divide
+Push 0.6, "val"
+GetVariable
+Push register1, "_defvalue"
+GetMember
+Divide
+Push 2, "Math"
+GetVariable
+Push "pow"
+CallMethod
+Divide
+Push 2
+Divide
+Add2
+StoreRegister 2
+Pop
+loc1846:Jump loc18c0
+loc184b:Push register1, "_defvalue"
+GetMember
+Not
+If loc18c0
+Push register1, "_diff"
+GetMember
+Not
+If loc1896
+Push register2, register1, "_diff"
+GetMember
+Push "val"
+GetVariable
+Push register1, "_defvalue"
+GetMember
+Subtract
+Push register1, "_inc"
+GetMember
+Divide
+ToInteger
+Multiply
+Add2
+StoreRegister 2
+Pop
+Jump loc18c0
+loc1896:Push register2, register1, "_diff"
+GetMember
+Push register1, "_defvalue"
+GetMember
+Push "val"
+GetVariable
+Subtract
+Push register1, "_inc"
+GetMember
+Divide
+ToInteger
+Multiply
+Add2
+StoreRegister 2
+Pop
+loc18c0:Jump loc192b
+loc18c5:Push "val", register1, "_selected"
+GetMember
+ToInteger
+SetVariable
+Push "val"
+GetVariable
+Push 0.0
+Equals2
+Not
+If loc190d
+Push register1, "_negdiff"
+GetMember
+Not
+If loc1908
+Push register2, register1, "_negdiff"
+GetMember
+Add2
+StoreRegister 2
+Pop
+loc1908:Jump loc192b
+loc190d:Push register1, "_diff"
+GetMember
+Not
+If loc192b
+Push register2, register1, "_diff"
+GetMember
+Add2
+StoreRegister 2
+Pop
+loc192b:Push register4, 2
+Multiply
+StoreRegister 4
+Pop
+Push register4, 2147483647
+Greater
+Not
+If loc1975
+Push register6
+Increment
+StoreRegister 6
+Pop
+Push register5, register6, 0.0
+SetMember
+Push 1
+StoreRegister 4
+Pop
+loc1975:Push register3
+Increment
+StoreRegister 3
+Pop
+Jump loc16da
+loc1985:Push register6
+Increment
+StoreRegister 6
+Pop
+Push register5, register6, 0.0
+SetMember
+Push 1
+StoreRegister 4
+Pop
+Push register5, register6, register5, register6
+GetMember
+Push "valGold"
+GetVariable
+Push "_value"
+GetMember
+Push 5
+Divide
+Push register4
+Multiply
+Add2
+SetMember
+Push "1"
+StoreRegister 8
+Pop
+Push 0.0
+StoreRegister 3
+Pop
+loc19f2:Push register3, register5, "length"
+GetMember
+Less2
+Not
+If loc1a26
+Push register8, "-", register5, register3
+GetMember
+Add2
+Add2
+StoreRegister 8
+Pop
+Push register3
+Increment
+StoreRegister 3
+Pop
+Jump loc19f2
+loc1a26:Push "s:", register8
+Add2
+Trace
+Push register9
+Not
+Not
+If loc1a65
+Push "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "sandbox", register8
+SetMember
+Push 0.0, "_pdata"
+GetVariable
+Push "flush"
+CallMethod
+Pop
+loc1a65:Push register2, 0.0
+Less2
+Not
+If loc1a8b
+Push 0.01
+StoreRegister 2
+Pop
+loc1a8b:Push register2, 3
+Greater
+Not
+If loc1aa9
+Push 3
+StoreRegister 2
+Pop
+loc1aa9:Push "txtRatio"
+GetVariable
+Push "text", "x", register2, 1000
+Multiply
+ToInteger
+Push 1000
+Divide
+Add2
+SetMember
+Push register2, 1000
+Multiply
+ToInteger
+Push 1, "ModeSettings"
+GetVariable
+Push "ratio"
+GetMember
+Push "Set"
+CallMethod
+Pop
+Push 0.0, "ModeSettings"
+GetVariable
+Push "ratio"
+GetMember
+Push "Get"
+CallMethod
+Trace
+}
+DefineFunction2 "SetMode", 0, 46, false, false, true, false, true, false, false, true, false {
+Push "optArc", "arcadeMode", "optDiff1", "difficulty", "optDiff2", "difficulty", "optDiff3", "difficulty", "optWav1", "", "optWav2", "onlySpawn", "optWav3", "rndChal", "optWav4", "evilWaves", "optBoss", "onlyBoss", "optTric", "trickleChal", "optPe", "NoPellet", "optSq", "NoSquirt", "optDa", "NoDart", "optSw", "NoSwarm", "optFr", "NoFrost", "optBa", "NoBash", "optIn", "NoInk", "optSn", "NoSnap", "optBo", "NoBoost", "optBuy", "noBuy", "optSel", "noSell", "optUp", "noUpgrade", "optTow1", "maxTowers", "optTow2", "maxTowers", "optTow3", "maxTowers", "optMap1", "mapConfig", "optMap2", "mapConfig", "optMap3", "mapConfig", "optMap4", "mapConfig", "optSize1", "mapSize", "optSize2", "mapSize", "optSize3", "mapSize", "valGold", "startGold", 33
+InitObject
+StoreRegister 4
+Pop
+Push 0.0
+InitObject
+StoreRegister 9
+Pop
+Push 1
+StoreRegister 35
+Pop
+Push register4
+Enumerate2
+loc1bd3:StoreRegister 0
+Push null
+Equals2
+If loc1e23
+Push register0
+StoreRegister 10
+Pop
+Push register1, register10
+GetMember
+StoreRegister 2
+Pop
+Push undefined
+StoreRegister 3
+Pop
+Push undefined
+StoreRegister 5
+Pop
+Push undefined
+StoreRegister 6
+Pop
+Push register2, "_linked"
+GetMember
+Not
+If loc1c7c
+Push -1, 1, register2, "_name"
+GetMember
+Push "substr"
+CallMethod
+ToInteger
+StoreRegister 5
+Pop
+Push register2, "_name"
+GetMember
+Push "length"
+GetMember
+Push 1
+Subtract
+Push 0.0, 2, register2, "_name"
+GetMember
+Push "substr"
+CallMethod
+StoreRegister 6
+Pop
+Jump loc1c8e
+loc1c7c:Push undefined
+StoreRegister 5
+Pop
+Push undefined
+StoreRegister 6
+Pop
+loc1c8e:Push register2, "_value"
+GetMember
+Push undefined
+Equals2
+Not
+Not
+If loc1cb5
+Push register2, "_value"
+GetMember
+ToInteger
+StoreRegister 3
+Pop
+Jump loc1d1c
+loc1cb5:Push register2, "_selected"
+GetMember
+ToInteger
+StoreRegister 3
+Pop
+Push register2, "_numvalue"
+GetMember
+Push undefined
+Equals2
+Not
+If loc1cdb
+Jump loc1cfe
+loc1cdb:Push register3, 0.0
+Equals2
+Not
+Not
+If loc1cfe
+Push register2, "_numvalue"
+GetMember
+StoreRegister 5
+Pop
+loc1cfe:Push register3, 0.0
+Equals2
+Not
+If loc1d1c
+Push undefined
+StoreRegister 3
+Pop
+loc1d1c:Push register2
+Not
+If loc1e1e
+Push 3, 1, register10, "substr"
+CallMethod
+StoreRegister 8
+Pop
+Push 3, 0.0, 2, register10, "substr"
+CallMethod
+StoreRegister 7
+Pop
+Push register3, undefined
+Equals2
+Not
+Not
+If loc1ded
+Push register4, register10
+GetMember
+Not
+If loc1de8
+Push register6
+Not
+If loc1d9e
+Push "ModeSettings"
+GetVariable
+Push register4, register10
+GetMember
+Push register5
+SetMember
+Jump loc1de8
+loc1d9e:Push register2, "_reverse"
+GetMember
+Not
+Not
+If loc1de8
+Push register7, "opt"
+Equals2
+Not
+If loc1dd4
+Push "ModeSettings"
+GetVariable
+Push register4, register10
+GetMember
+Push true
+SetMember
+Jump loc1de8
+loc1dd4:Push "ModeSettings"
+GetVariable
+Push register4, register10
+GetMember
+Push register3
+SetMember
+loc1de8:Jump loc1e1e
+loc1ded:Push register2, "_reverse"
+GetMember
+Not
+If loc1e0f
+Push "ModeSettings"
+GetVariable
+Push register4, register10
+GetMember
+Push true
+SetMember
+loc1e0f:Push register9, "data"
+GetMember
+Push register8
+Delete
+Pop
+loc1e1e:Jump loc1bd3
+loc1e23:Push "-", 1, "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "sandbox"
+GetMember
+Push "split"
+CallMethod
+StoreRegister 11
+Pop
+Push 0.0, register11, "pop"
+CallMethod
+Pop
+Push 0.0, register11, "shift"
+CallMethod
+Pop
+Push "ModeSettings"
+GetVariable
+Push "modeNum", "-", 1, register11, "join"
+CallMethod
+SetMember
+Push "txtConfig"
+GetVariable
+Push "text", "_pdata"
+GetVariable
+Push "data"
+GetMember
+Push "sandbox"
+GetMember
+SetMember
+Push "ModeSettings"
+GetVariable
+Push "modeNum"
+GetMember
+Trace
+}
+Push "_lastFrame", "", 4
+GetProperty
+SetVariable
+Push "btnGo"
+GetVariable
+Push "_text", "GO"
+SetMember
+Push "optArc"
+GetVariable
+Push "_text", "Arcade Mode"
+SetMember
+Push "optArc"
+GetVariable
+Push "_desc", "No sell penalty and fast upgrading."
+SetMember
+Push "optArc"
+GetVariable
+Push "_diff", -0.5
+SetMember
+Push "optArc"
+GetVariable
+Push "_locked", false
+SetMember
+Push "optDiff1"
+GetVariable
+Push "_text", "Easy Creeps"
+SetMember
+Push "optDiff1"
+GetVariable
+Push "_desc", "Creeps have low health."
+SetMember
+Push "optDiff1"
+GetVariable
+Push "_diff", -0.5
+SetMember
+Push "optDiff2"
+GetVariable
+Push "_text", "Normal Creeps"
+SetMember
+Push "optDiff2"
+GetVariable
+Push "_desc", "Creeps have normal health."
+SetMember
+Push "optDiff2"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optDiff3"
+GetVariable
+Push "_text", "Hard Creeps"
+SetMember
+Push "optDiff3"
+GetVariable
+Push "_desc", "Creeps have high health."
+SetMember
+Push "optDiff3"
+GetVariable
+Push "_diff", 0.2
+SetMember
+Push "optDiff1"
+GetVariable
+Push "_linked", "optDiff3"
+GetVariable
+Push "optDiff2"
+GetVariable
+Push "optDiff1"
+GetVariable
+Push 3
+InitArray
+SetMember
+Push "optWav1"
+GetVariable
+Push "_text", "Normal"
+SetMember
+Push "optWav1"
+GetVariable
+Push "_desc", "Normal wave order."
+SetMember
+Push "optWav1"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optWav2"
+GetVariable
+Push "_text", "Spawn Waves"
+SetMember
+Push "optWav2"
+GetVariable
+Push "_desc", "Only Spawn waves."
+SetMember
+Push "optWav2"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optWav3"
+GetVariable
+Push "_text", "Random Waves"
+SetMember
+Push "optWav3"
+GetVariable
+Push "_desc", "Random wave order."
+SetMember
+Push "optWav3"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optWav4"
+GetVariable
+Push "_text", "Evil Waves"
+SetMember
+Push "optWav4"
+GetVariable
+Push "_desc", "Waves put into such a diabolical order that you will never prevail!"
+SetMember
+Push "optWav4"
+GetVariable
+Push "_diff", 0.2
+SetMember
+Push "optWav1"
+GetVariable
+Push "_linked", "optWav4"
+GetVariable
+Push "optWav3"
+GetVariable
+Push "optWav2"
+GetVariable
+Push "optWav1"
+GetVariable
+Push 4
+InitArray
+SetMember
+Push "optBoss"
+GetVariable
+Push "_text", "Boss Only"
+SetMember
+Push "optBoss"
+GetVariable
+Push "_desc", "Bosses only!"
+SetMember
+Push "optBoss"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optTric"
+GetVariable
+Push "_text", "Trickle"
+SetMember
+Push "optTric"
+GetVariable
+Push "_desc", "Waves arrive as a constant stream of creeps."
+SetMember
+Push "optTric"
+GetVariable
+Push "_diff", 0.2
+SetMember
+Push "optPe"
+GetVariable
+Push "_text", "Pellet"
+SetMember
+Push "optPe"
+GetVariable
+Push "_desc", "Pellet towers are available."
+SetMember
+Push "optPe"
+GetVariable
+Push "_negdiff", 0.2
+SetMember
+Push "optPe"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optSq"
+GetVariable
+Push "_text", "Squirt"
+SetMember
+Push "optSq"
+GetVariable
+Push "_desc", "Squirt towers are available."
+SetMember
+Push "optSq"
+GetVariable
+Push "_negdiff", 0.1
+SetMember
+Push "optSq"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optDa"
+GetVariable
+Push "_text", "Dart"
+SetMember
+Push "optDa"
+GetVariable
+Push "_desc", "Dart towers are available."
+SetMember
+Push "optDa"
+GetVariable
+Push "_negdiff", 0.1
+SetMember
+Push "optDa"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optSw"
+GetVariable
+Push "_text", "Swarm"
+SetMember
+Push "optSw"
+GetVariable
+Push "_desc", "Swarm towers are available."
+SetMember
+Push "optSw"
+GetVariable
+Push "_negdiff", 0.1
+SetMember
+Push "optSw"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optFr"
+GetVariable
+Push "_text", "Frost"
+SetMember
+Push "optFr"
+GetVariable
+Push "_desc", "Frost towers are available."
+SetMember
+Push "optFr"
+GetVariable
+Push "_negdiff", 0.1
+SetMember
+Push "optFr"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optBa"
+GetVariable
+Push "_text", "Bash"
+SetMember
+Push "optBa"
+GetVariable
+Push "_desc", "Bash towers are available."
+SetMember
+Push "optBa"
+GetVariable
+Push "_negdiff", 0.05
+SetMember
+Push "optBa"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optIn"
+GetVariable
+Push "_text", "Ink"
+SetMember
+Push "optIn"
+GetVariable
+Push "_desc", "Ink towers are available."
+SetMember
+Push "optIn"
+GetVariable
+Push "_negdiff", 0.05
+SetMember
+Push "optIn"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optSn"
+GetVariable
+Push "_text", "Snap"
+SetMember
+Push "optSn"
+GetVariable
+Push "_desc", "Snap towers are available."
+SetMember
+Push "optSn"
+GetVariable
+Push "_negdiff", 0.05
+SetMember
+Push "optSn"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optBo"
+GetVariable
+Push "_text", "Boost"
+SetMember
+Push "optBo"
+GetVariable
+Push "_desc", "Boost towers are available."
+SetMember
+Push "optBo"
+GetVariable
+Push "_negdiff", 0.05
+SetMember
+Push "optBo"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optBuy"
+GetVariable
+Push "_text", "Buy"
+SetMember
+Push "optBuy"
+GetVariable
+Push "_desc", "Towers can be purchased once the game has started."
+SetMember
+Push "optBuy"
+GetVariable
+Push "_negdiff", 0.2
+SetMember
+Push "optBuy"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optUp"
+GetVariable
+Push "_text", "Upgrade"
+SetMember
+Push "optUp"
+GetVariable
+Push "_desc", "Towers can be upgraded once the game has started."
+SetMember
+Push "optUp"
+GetVariable
+Push "_negdiff", 0.2
+SetMember
+Push "optUp"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optSel"
+GetVariable
+Push "_text", "Sell"
+SetMember
+Push "optSel"
+GetVariable
+Push "_desc", "Towers can be sold once the game has started."
+SetMember
+Push "optSel"
+GetVariable
+Push "_negdiff", 0.05
+SetMember
+Push "optSel"
+GetVariable
+Push "_reverse", true
+SetMember
+Push "optTow1"
+GetVariable
+Push "_text", "Unlimited"
+SetMember
+Push "optTow1"
+GetVariable
+Push "_desc", "Unlimited towers can be built."
+SetMember
+Push "optTow1"
+GetVariable
+Push "_numvalue", 0.0
+SetMember
+Push "optTow1"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optTow2"
+GetVariable
+Push "_text", "Max 20"
+SetMember
+Push "optTow2"
+GetVariable
+Push "_desc", "A maximum of 20 towers can be built."
+SetMember
+Push "optTow2"
+GetVariable
+Push "_numvalue", 20
+SetMember
+Push "optTow2"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optTow3"
+GetVariable
+Push "_text", "Max 10"
+SetMember
+Push "optTow3"
+GetVariable
+Push "_desc", "A maximum of 10 towers can be built."
+SetMember
+Push "optTow3"
+GetVariable
+Push "_numvalue", 10
+SetMember
+Push "optTow3"
+GetVariable
+Push "_diff", 0.2
+SetMember
+Push "optTow1"
+GetVariable
+Push "_linked", "optTow3"
+GetVariable
+Push "optTow2"
+GetVariable
+Push "optTow1"
+GetVariable
+Push 3
+InitArray
+SetMember
+Push "optMap1"
+GetVariable
+Push "_text", "1 Entrance"
+SetMember
+Push "optMap1"
+GetVariable
+Push "_desc", "Creeps enter through 1 entrance."
+SetMember
+Push "optMap1"
+GetVariable
+Push "_diff", -0.2
+SetMember
+Push "optMap2"
+GetVariable
+Push "_text", "2 Entrances"
+SetMember
+Push "optMap2"
+GetVariable
+Push "_desc", "Creeps enter through 2 entrances."
+SetMember
+Push "optMap2"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optMap3"
+GetVariable
+Push "_text", "4 Entrances"
+SetMember
+Push "optMap3"
+GetVariable
+Push "_desc", "Creeps enter through 4 entrances and exit in the middle."
+SetMember
+Push "optMap3"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optMap4"
+GetVariable
+Push "_text", "Corners"
+SetMember
+Push "optMap4"
+GetVariable
+Push "_desc", "Creeps enter and exit through entrances in the corners."
+SetMember
+Push "optMap4"
+GetVariable
+Push "_diff", 0.2
+SetMember
+Push "optMap1"
+GetVariable
+Push "_linked", "optMap4"
+GetVariable
+Push "optMap3"
+GetVariable
+Push "optMap2"
+GetVariable
+Push "optMap1"
+GetVariable
+Push 4
+InitArray
+SetMember
+Push "optSize1"
+GetVariable
+Push "_text", "Small Map"
+SetMember
+Push "optSize1"
+GetVariable
+Push "_desc", "A map of size 20x16 squares."
+SetMember
+Push "optSize1"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optSize2"
+GetVariable
+Push "_text", "Normal Map"
+SetMember
+Push "optSize2"
+GetVariable
+Push "_desc", "A map of size 28x24 squares."
+SetMember
+Push "optSize2"
+GetVariable
+Push "_diff", 0.0
+SetMember
+Push "optSize3"
+GetVariable
+Push "_text", "Large Map"
+SetMember
+Push "optSize3"
+GetVariable
+Push "_desc", "A map of size 36x32 squares."
+SetMember
+Push "optSize3"
+GetVariable
+Push "_diff", 0.1
+SetMember
+Push "optSize1"
+GetVariable
+Push "_linked", "optSize3"
+GetVariable
+Push "optSize2"
+GetVariable
+Push "optSize1"
+GetVariable
+Push 3
+InitArray
+SetMember
+Push "valGold"
+GetVariable
+Push "_text", "Start Money"
+SetMember
+Push "valGold"
+GetVariable
+Push "_defvalue", 80
+SetMember
+Push "valGold"
+GetVariable
+Push "_inc", 5
+SetMember
+Push "valGold"
+GetVariable
+Push "_neginc", 2
+SetMember
+Push "valGold"
+GetVariable
+Push "_desc", "The amount of money that you will start with."
+SetMember
+Push "valGold"
+GetVariable
+Push "_diff", 0.001
+SetMember
+Push "valGold"
+GetVariable
+Push "_minValue", "10"
+SetMember
+Push "valGold"
+GetVariable
+Push "_maxValue", 49995
+SetMember
+Push 0.0, "_root"
+GetVariable
+Push "CCAPI"
+GetMember
+Push "PlayerIsGuest"
+CallMethod
+Pop
+Push false
+Push false
+Equals2
+Not
+If loc2751
+Push "valGold"
+GetVariable
+Push "_locked", false
+SetMember
+Jump loc275f
+loc2751:Push "valGold"
+GetVariable
+Push "_locked", true
+SetMember
+loc275f:

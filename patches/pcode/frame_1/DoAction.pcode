@@ -1,0 +1,139 @@
+ConstantPool "CCAPI", "GetHost", "hdg", "SBoolean", "Debug Start", "hss", "CCHandshake", "CCSetup", "hsok", "SetHost", "_root.CCAPI:", "SetVersion", "stimpy", "SetHC", "CCStop", "NAD", "_lockroot", "_global", "build", "1.5Pro", "Check", "setTimeout", "_gn", "this", "CCSetVolume", "vol", "SetVolume"
+DefineFunction2 "SetHost", 0, 4, false, true, true, false, true, false, true, false, true {
+Push 0.0, register1, "CCAPI"
+GetMember
+Push "GetHost"
+CallMethod
+StoreRegister 3
+Pop
+Push register2, "hdg", true, 1, "SBoolean"
+NewObject
+SetMember
+}
+DefineFunction2 "Check", 0, 2, false, true, true, false, true, false, true, false, false {
+Push "Debug Start"
+Trace
+Push "hss"
+GetVariable
+Push 11
+Divide
+Push "hss"
+GetVariable
+Push 11
+Divide
+ToInteger
+Subtract
+Push "hss"
+GetVariable
+Push 11
+Modulo
+Add2
+Push 1, register1, "CCHandshake"
+CallMethod
+Pop
+Push 0.0, register1, "CCSetup"
+CallMethod
+Pop
+}
+DefineFunction2 "CCHandshake", 1, 4, false, true, true, false, true, false, false, true, false, 3, "n" {
+Push "CCHandshake"
+Trace
+Push register3, "hss"
+GetVariable
+Push 11
+Divide
+Push "hss"
+GetVariable
+Push 11
+Divide
+ToInteger
+Subtract
+Push "hss"
+GetVariable
+Push 11
+Modulo
+Add2
+Equals2
+Not
+If loc0264
+Push register1, "hsok"
+GetTime
+SetMember
+Push 0.0, register2, "SetHost"
+CallMethod
+Pop
+Push register1, "CCHandshake"
+Delete
+Pop
+Push register1, "hss"
+Delete
+Pop
+Push register1, "CCSetup"
+DefineFunction2 "", 0, 3, false, true, true, false, true, false, false, true, false {
+Push "_root.CCAPI:", register2, "CCAPI"
+GetMember
+Add2
+Trace
+Push 1, 1, register2, "CCAPI"
+GetMember
+Push "SetVersion"
+CallMethod
+Pop
+Push "stimpy", 1, register2, "CCAPI"
+GetMember
+Push "SetHC"
+CallMethod
+Pop
+Push register1, "CCStop"
+DefineFunction "", 0 {
+}
+SetMember
+}
+SetMember
+Play
+Push true
+Return
+loc0264:Push "NAD"
+Trace
+Play
+Push true
+Return
+}
+Push "_lockroot", true
+SetVariable
+Push "_global"
+GetVariable
+Push "build", "1.5Pro"
+SetMember
+Push 200, "Check"
+GetVariable
+Push 2, "_global"
+GetVariable
+Push "setTimeout"
+CallMethod
+Pop
+Push "hss", 9999999
+RandomNumber
+DefineLocal
+Stop
+Push "_gn"
+DefineLocal2
+Push "this"
+GetVariable
+Push "CCSetVolume"
+DefineFunction2 "", 2, 3, false, true, true, false, true, false, true, false, false, 0, "m", 2, "s" {
+Push register1, "vol", register2
+SetMember
+Push register2, 1, register1, "_gn"
+GetVariable
+GetMember
+Push "SetVolume"
+CallMethod
+Pop
+}
+SetMember
+
+Push "_root"
+GetVariable
+Push "vol", 100
+SetMember

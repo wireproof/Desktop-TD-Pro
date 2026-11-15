@@ -7,29 +7,33 @@ import Network
 }
 struct RootView: View {
     @State private var choosingIcon = false
-    @State private var iconError: String?
+    @StateObject private var game = GameController()
+    @State private var notice: String?
     var body: some View {
-        GameView().ignoresSafeArea()
-            .overlay(alignment: .topTrailing) {
+        GameView(controller: game).ignoresSafeArea()
+            .overlay(alignment: .top) {
                 Button { choosingIcon = true } label: {
                     Image(systemName: "gearshape.fill").font(.system(size: 15, weight: .semibold))
                         .foregroundColor(.white).padding(9).background(.black.opacity(0.65), in: Circle())
-                }.accessibilityLabel("App icon settings").padding(8)
+                }.accessibilityLabel("Game settings").padding(.top, 4)
             }
-            .confirmationDialog("App Icon", isPresented: $choosingIcon, titleVisibility: .visible) {
-                Button("Red (default)") { setIcon(nil) }
-                Button("Purple") { setIcon("PurpleIcon") }
+            .confirmationDialog("Game settings", isPresented: $choosingIcon, titleVisibility: .visible) {
+                Button("Save Sandbox checkpoint") { game.command("save") }
+                Button("Load Sandbox checkpoint") { game.command("load") }
+                Button("Red icon (default)") { setIcon(nil) }
+                Button("Purple icon") { setIcon("PurpleIcon") }
                 Button("Cancel", role: .cancel) {}
             }
-            .alert("Unable to change icon", isPresented: Binding(get: { iconError != nil }, set: { if !$0 { iconError = nil } })) {
-                Button("OK", role: .cancel) { iconError = nil }
-            } message: { Text(iconError ?? "") }
+            .onReceive(game.$message) { if let message = $0 { notice = message; game.message = nil } }
+            .alert("Desktop TD Pro", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
+                Button("OK", role: .cancel) { notice = nil }
+            } message: { Text(notice ?? "") }
     }
     private func setIcon(_ name: String?) {
-        guard UIApplication.shared.supportsAlternateIcons else { iconError = "Alternate icons are not available on this device."; return }
+        guard UIApplication.shared.supportsAlternateIcons else { notice = "Alternate icons are not available on this device."; return }
         guard UIApplication.shared.alternateIconName != name else { return }
         UIApplication.shared.setAlternateIconName(name) { error in
-            if let error { DispatchQueue.main.async { iconError = error.localizedDescription } }
+            if let error { DispatchQueue.main.async { notice = error.localizedDescription } }
         }
     }
 }
@@ -70,20 +74,37 @@ final class LocalServer {
         }
     }
 }
+final class GameController: ObservableObject {
+    weak var webView: WKWebView?
+    @Published var message: String?
+    func command(_ command: String) {
+        guard let webView = webView else { message = "The game is still loading."; return }
+        webView.evaluateJavaScript("window.wireCheckpointCommand ? window.wireCheckpointCommand('\(command)') : 'The game is still loading.'") { [weak self] result, error in
+            DispatchQueue.main.async { self?.message = error?.localizedDescription ?? (result as? String ?? "The game could not perform that action.") }
+        }
+    }
+}
 struct GameView: UIViewRepresentable {
-    func makeCoordinator() -> Coordinator { Coordinator() }
+    let controller: GameController
+    func makeCoordinator() -> Coordinator { Coordinator(controller: controller) }
     func makeUIView(context: Context) -> WKWebView {
         let config = WKWebViewConfiguration(); config.mediaTypesRequiringUserActionForPlayback = []
         config.userContentController.add(context.coordinator, name: "gameStatus")
         let web = WKWebView(frame: .zero, configuration: config); web.isOpaque = false; web.backgroundColor = .black
         web.scrollView.isScrollEnabled = false; web.navigationDelegate = context.coordinator
+        controller.webView = web
         context.coordinator.server.onReady = { [weak web] url in web?.load(URLRequest(url: url)) }
         do { try context.coordinator.server.start() } catch { web.loadHTMLString("<h2>Unable to start local game server</h2>", baseURL: nil) }
         return web
     }
     func updateUIView(_ uiView: WKWebView, context: Context) {}
     final class Coordinator: NSObject, WKNavigationDelegate, WKScriptMessageHandler {
-        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) { NSLog("DesktopTD status: %@", String(describing: message.body)) }
+        weak var controller: GameController?
+        init(controller: GameController) { self.controller = controller }
+        func userContentController(_ userContentController: WKUserContentController, didReceive message: WKScriptMessage) {
+            NSLog("DesktopTD status: %@", String(describing: message.body))
+            if let body = message.body as? [String: String], let status = body["checkpoint"] { controller?.message = status }
+        }
         let server = LocalServer()
         func webView(_ webView: WKWebView, decidePolicyFor action: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
             let u = action.request.url; decisionHandler(u?.host == "127.0.0.1" || u?.scheme == "about" ? .allow : .cancel)
