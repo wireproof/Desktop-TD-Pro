@@ -8,3 +8,7 @@ device-backups/
 
 desktop/node_modules/
 desktop/dist/
+
+!desktop/build/
+!desktop/build/icon.icns
+!desktop/build/icon.ico
