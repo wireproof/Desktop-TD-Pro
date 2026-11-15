@@ -1,0 +1,6 @@
+build/
+release/
+research/
+tools/
+*.log
+.DS_Store
