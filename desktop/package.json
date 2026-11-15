@@ -1,0 +1,55 @@
+{
+  "name": "desktop-td",
+  "productName": "Desktop TD",
+  "version": "0.5.0",
+  "description": "Desktop Tower Defense Pro compatibility build",
+  "main": "main.cjs",
+  "private": true,
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "electron .",
+    "dist:mac": "electron-builder --mac dmg --arm64 --x64",
+    "dist:win": "electron-builder --win portable --x64"
+  },
+  "devDependencies": {
+    "electron": "45.3.2",
+    "electron-builder": "26.18.0"
+  },
+  "build": {
+    "appId": "com.wireproof.dtdpro.desktop",
+    "productName": "Desktop TD",
+    "directories": {
+      "output": "dist",
+      "buildResources": "build"
+    },
+    "files": [
+      "main.cjs",
+      "preload.cjs",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "../app/Resources/Web",
+        "to": "Web"
+      }
+    ],
+    "mac": {
+      "category": "public.app-category.games",
+      "icon": "build/icon.icns",
+      "identity": "-",
+      "hardenedRuntime": false,
+      "gatekeeperAssess": false
+    },
+    "dmg": {
+      "artifactName": "Desktop-TD-${version}-mac-${arch}.${ext}"
+    },
+    "win": {
+      "icon": "build/icon.ico",
+      "signAndEditExecutable": true
+    },
+    "portable": {
+      "artifactName": "Desktop-TD-${version}-Windows-${arch}.${ext}"
+    }
+  },
+  "author": "wireproof"
+}

@@ -1,6 +1,6 @@
 # Desktop TD
 
-Desktop TD is an iPhone/iPad compatibility project for the recovered **Desktop Tower Defense Pro** Flash game. It runs the original game and its graphics and sounds using a bundled Ruffle player in a local `WKWebView`. The app is not a native rewrite or an upscaled graphics remaster. This private project preserves the recovered game for testing; it does not claim ownership of the original game or a license to redistribute it.
+Desktop TD is an iPhone/iPad compatibility project for the recovered **Desktop Tower Defense Pro** Flash game. It runs the original game and its graphics and sounds using a bundled Ruffle player in a local `WKWebView`. The app is not a native rewrite or an upscaled graphics remaster. This project preserves the recovered game for testing; it does not claim ownership of the original game or a license to redistribute it.
 
 ## iPhone build
 
@@ -27,9 +27,26 @@ The game and Ruffle files are bundled and served from a fixed loopback address, 
 
 Sandbox tower preload and the checkpoint are local replacements, not a recreation of all former account features. Cloud accounts, online leaderboards and multiplayer have not been recreated. The recovered game is running through an emulator, so behavior in every mode and exact equivalence to the original Flash runtime have not been established. If the former `com.wireproof.desktoptdpro` app remains installed, it is a separate iOS app with a separate data container; iOS does not automatically transfer data between bundle identifiers.
 
-## Install the test IPA
+## Desktop builds
 
-The IPA is attached to the private GitHub release. It is signed with an Apple Development provisioning profile for registered devices, not an App Store or universal distribution build. It may need to be re-signed with your own Apple development team, provisioning profile and device registration; signing can expire. Preserve the existing installation and its data when updating. The release notes describe what was actually tested.
+The standalone desktop edition uses Electron with the same bundled Ruffle game. macOS packages are provided for Apple silicon and Intel; the Windows build is a portable x64 EXE. The window can be resized or switched to full screen (F11 on Windows, Control–Command–F on macOS). The **Game** menu provides Sandbox checkpoint save and load. Local desktop saves are separate from iPhone saves and from other computers.
+
+The desktop programs serve bundled files on `127.0.0.1:58919` and keep game data in the operating system's per-user application-data directory. They do not require a Flash installation or the original game server. A second copy cannot start while the first holds the local port.
+
+The macOS build is ad-hoc signed and not notarized; the Windows build is unsigned. Operating-system security checks can prevent or warn about running these builds. Use your own code-signing credentials and distribution process for broadly trusted releases. Desktop features and local persistence require more real-world testing.
+
+To build the desktop app, install Node.js and npm, then from the repository root run:
+
+```sh
+cd desktop
+npm ci
+npm run dist:mac    # macOS DMGs; run on macOS
+npm run dist:win    # Windows portable EXE; run on Windows
+```
+
+## iPhone IPA and signing
+
+The public release includes an **unsigned iPhone IPA** for re-signing with your own Apple development team and registered device. It cannot be installed as-is. Development provisioning profiles contain registered-device identifiers and are intentionally excluded from the public artifact. The owner's device-specific signed IPA remains in the private project and Synology backup. Apple development signatures can expire. Preserve the existing installation and its data when updating.
 
 ## Build from source
 
@@ -60,9 +77,9 @@ The script checks the original hash and applies the source and bytecode patches 
 
 - Finish iPhone interface and save verification, including cutouts, fold transitions, checkpoints, tower layouts, and longer games.
 - Verify iPad Pro 11-inch sizing, input, audio and persistence.
-- Package and test macOS and Windows versions with windowed and full-screen controls.
+- Continue macOS and Windows testing, including persistence, performance and signing/notarization for trusted distribution.
 - Prepare a browser-hosted version for the owner's Synology web server and wireproof.net; no deployment has been made. The current Ruffle-based web assets are not a native HTML5 rewrite.
 - Investigate a native HTML5 reconstruction and graphics remaster only if desired; preserve original gameplay and sounds and compare against the recovered build.
 - Decide whether local replacements for additional account features, scores, or multiplayer are wanted and feasible.
 
-Ruffle is developed at <https://github.com/ruffle-rs/ruffle>; its bundled license is in `app/Resources/Web/RUFFLE-LICENSE.md`. Desktop Tower Defense Pro and its original assets belong to their respective rights holders. Provenance and redistribution rights are unverified; keep releases private unless those rights are resolved.
+Ruffle is developed at <https://github.com/ruffle-rs/ruffle>; its bundled license is in `app/Resources/Web/RUFFLE-LICENSE.md`. Desktop Tower Defense Pro and its original assets belong to their respective rights holders. Provenance and redistribution rights are unverified; no ownership or redistribution license is asserted.

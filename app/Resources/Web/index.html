@@ -61,6 +61,7 @@ window.addEventListener('load',async()=>{try{
         if (status && !String(status).startsWith('Waiting')) {
           clearInterval(timer);
           window.webkit?.messageHandlers?.gameStatus?.postMessage({checkpoint: String(status)});
+          window.desktopBridge?.checkpointStatus?.(String(status));
         }
       }, 1000);
     }
@@ -73,6 +74,7 @@ window.addEventListener('load',async()=>{try{
     if(screen!==lastScreen) {lastScreen=screen; window.webkit?.messageHandlers?.gameStatus?.postMessage({screen});}
   };
   updateScreen(); setInterval(updateScreen,250);
-  window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');document.querySelector('#message').remove();
+  window.webkit?.messageHandlers?.gameStatus?.postMessage('SWF loaded');
+  window.desktopBridge?.gameLoaded?.();document.querySelector('#message').remove();
 }catch(e){window.webkit?.messageHandlers?.gameStatus?.postMessage('Load failed: '+e);document.querySelector('#message').textContent='Game could not load: '+e}})
 </script></body></html>

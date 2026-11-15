@@ -5,3 +5,6 @@ tools/
 *.log
 .DS_Store
 device-backups/
+
+desktop/node_modules/
+desktop/dist/
