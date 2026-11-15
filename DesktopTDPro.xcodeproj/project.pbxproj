@@ -46,7 +46,7 @@
 			);
 			sourceTree = "<group>";
 		};
-		"TEMP_C60D8295-DB62-4C79-850F-361CE4BC246F" /* Resources */ = {
+		"TEMP_85C0D849-E92E-4925-8FFD-53FF5DFA6EE9" /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
@@ -152,8 +152,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wireproof.desktoptdpro;
-				PRODUCT_NAME = "Desktop TD Pro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wireproof.dtdpro;
+				PRODUCT_NAME = "Desktop TD";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -180,8 +180,8 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wireproof.desktoptdpro;
-				PRODUCT_NAME = "Desktop TD Pro";
+				PRODUCT_BUNDLE_IDENTIFIER = com.wireproof.dtdpro;
+				PRODUCT_NAME = "Desktop TD";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

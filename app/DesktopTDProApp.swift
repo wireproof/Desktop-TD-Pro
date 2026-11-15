@@ -25,7 +25,7 @@ struct RootView: View {
                 Button("Cancel", role: .cancel) {}
             }
             .onReceive(game.$message) { if let message = $0 { notice = message; game.message = nil } }
-            .alert("Desktop TD Pro", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
+            .alert("Desktop TD", isPresented: Binding(get: { notice != nil }, set: { if !$0 { notice = nil } })) {
                 Button("OK", role: .cancel) { notice = nil }
             } message: { Text(notice ?? "") }
     }

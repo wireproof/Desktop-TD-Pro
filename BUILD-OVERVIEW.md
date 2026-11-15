@@ -1,14 +1,14 @@
-# Desktop TD Pro — iOS compatibility test
+# Desktop TD — iOS compatibility test
 
 An experimental iPhone/iPad app that runs a recovered Desktop TD Pro Flash file with Ruffle in WKWebView. This is a compatibility build, not a native rewrite or a verified remaster. It serves bundled content on a fixed loopback address and restricts network access to the local application origin.
 
 ## Current test build
 
-Version 0.3.0 build 4 is an experimental update. It retains local Sandbox tower preload and touch placement, moves the settings button to the top center, initializes the original game sound volume, and adds one local Sandbox checkpoint slot. The red app icon is the default; the settings menu offers purple.
+Version 0.3.1 build 5 changes the app name to Desktop TD and bundle identifier to `com.wireproof.dtdpro`. It installs separately from the earlier `com.wireproof.desktoptdpro`; local saves do not migrate automatically. The iPhone test installation received a verified copy of the old app’s WebKit files before first launch, but their availability in game still needs confirmation. Version 0.3.0 build 4 was an experimental update. It retains local Sandbox tower preload and touch placement, moves the settings button to the top center, initializes the original game sound volume, and adds one local Sandbox checkpoint slot. The red app icon is the default; the settings menu offers purple.
 
 To save a run, open the gear menu during a single-player Sandbox game and choose **Save Sandbox checkpoint**. The request waits until the board is clear between waves; a message confirms whether the write succeeded. To restore it, open a fresh Sandbox game using the same settings, leave Preload towers off, and choose **Load Sandbox checkpoint** before starting or placing towers. A checkpoint does not preserve an active wave, and the final wave cannot be saved. Scenarios, Sprint and multiplayer do not yet have checkpoint support. Existing online accounts, scoreboards and multiplayer have not been recreated.
 
-A controlled browser test saved and restored a checkpoint after an actual wave; a separate test detected an audio signal after the volume change. The app loaded in the iOS simulator and build 4 was installed and launched on the iPhone. Physical-device sound, the moved button, and checkpoint behavior still require testing. The previous iPhone build was observed running with towers placed. This remains a compatibility build, not a native rewrite or a verified remaster.
+A controlled browser test saved and restored a checkpoint after an actual wave; a separate test detected an audio signal after the volume change. The app loaded in the iOS simulator and build 4 was installed and launched on the iPhone; build 5 was installed and launched under the new identifier. Physical-device sound, the moved button, and checkpoint behavior still require testing. The previous iPhone build was observed running with towers placed. This remains a compatibility build, not a native rewrite or a verified remaster.
 
 ## Build
 

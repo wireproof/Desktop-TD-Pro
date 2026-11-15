@@ -14,8 +14,8 @@ targets:
         type: folder
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.wireproof.desktoptdpro
-        PRODUCT_NAME: Desktop TD Pro
+        PRODUCT_BUNDLE_IDENTIFIER: com.wireproof.dtdpro
+        PRODUCT_NAME: Desktop TD
         DEVELOPMENT_TEAM: KTV9W3H439
         CODE_SIGN_STYLE: Automatic
         SWIFT_VERSION: '5.0'
