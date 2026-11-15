@@ -138,3 +138,17 @@ function wireLoadCheckpoint()
 flash.external.ExternalInterface.addCallback("wireSaveCheckpoint", null, wireSaveCheckpoint);
 flash.external.ExternalInterface.addCallback("wireLoadCheckpoint", null, wireLoadCheckpoint);
 flash.external.ExternalInterface.addCallback("wireCheckpointStatus", null, wireCheckpointStatus);
+function wireUpgradeAvailable()
+{
+   var g = Game.me;
+   var p = GameGUI.infoPanel;
+   return g != undefined && g.gameState <= 1 && p != undefined && p.tower != undefined && p.towerObj != undefined && p.btnUpgrade._visible && p.btnUpgrade._enabled && p.tower.upTicks == 0 && !p.tower.dragged && !p.tower.firing && g.gameInfo.CanUpgrade() && g.gold.Get() >= int(p.towerObj.cost) - p.tower.cost.Get();
+}
+function wireUpgradeSelected()
+{
+   if(!wireUpgradeAvailable()) return false;
+   GameGUI.infoPanel.ButtonClick("upgrade");
+   return true;
+}
+flash.external.ExternalInterface.addCallback("wireUpgradeAvailable", null, wireUpgradeAvailable);
+flash.external.ExternalInterface.addCallback("wireUpgradeSelected", null, wireUpgradeSelected);
